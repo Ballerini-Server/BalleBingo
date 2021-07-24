@@ -2,7 +2,7 @@
 Bot made to giveaway and play bingo!
 
 Hi, we created a bot in discord to play BINGO! 😼 BalleBingo was created to draw a true lucky member among cards! 🤩 To enter Bingo, just type B>card to receive a card in the chat (the message can be sent in the bot's DM, so your card will be saved for you to check while the numbers are drawn)!
-For more information see Moderation and for clarification, questions, doubts about the bot contact the development team
+For more information see Moderation and for clarification, questions, doubts about the bot contact the development team💻
 
 Commands:
 B>card = Request and receive a unique card and enter bingo!🎫
