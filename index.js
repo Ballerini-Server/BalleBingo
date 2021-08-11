@@ -1,5 +1,5 @@
 import 'dotenv/config'
-import Discord, { Guild } from 'discord.js'
+import Discord, { Guild, MessageAttachment } from 'discord.js'
 import { getRandomNumber } from './random.js';
 import { differenceInSeconds } from "date-fns";
 import { MessageButton } from 'discord-buttons';
@@ -158,11 +158,9 @@ client.on('message', async message => {
                 users.push(idUser); //adicionar User no banco
                 cartelaUsers.push(listNumbersSorteados) //adicionar lista no banco
 
-                layout.write(`./cartelafeita/${idUser}.png`, async() => {
-
-                    await message.channel.send("<@" + idUser + "> sua cartela é de número: [ " + numOfCards + " ] boa sorte! :relaxed:  ", { files: [`./cartelafeita/${idUser}.png`] })
+                layout.getBuffer(jimp.MIME_PNG, async (err, buffer) => {
+                    await message.channel.send("<@" + idUser + "> sua cartela é de número: [ " + numOfCards + " ] boa sorte! :relaxed:  ", new MessageAttachment(buffer, 'image.png'))
                     numOfCards++;
-                    await fs.rm(path.resolve(path.dirname('').toString(), 'cartelafeita', `${idUser}.png`))
                 })
 
 
@@ -280,8 +278,8 @@ client.on('message', async message => {
                             coordinateY += 92;
                             //coordenada padrao 55,125
                         }
-                        layout.write(`./cartelaConsulta/${idUser}.png`, async() => {
-                            await message.channel.send("<@" + idUser + "> Aqui está sua cartela atual :eyes: ", { files: [`./cartelaConsulta/${idUser}.png`] })
+                        layout.getBuffer(jimp.MIME_PNG, async (err, buffer) => {
+                            await message.channel.send("<@" + idUser + "> Aqui está sua cartela atual :eyes: ", new MessageAttachment(buffer, 'image.jpg'))
                         })
 
                     }
@@ -354,9 +352,10 @@ client.on('message', async message => {
                                 1500,
                                 70)
 
-                            await winner.composite(avatar, 785, 351).write('./vencedor/ImgWinner.png')
-                            positionWinner++;
-                            await message.channel.send(":writing_hand: Parabéns <@" + idUser + "> você foi o " + positionWinner + "° vencedor(a)! :star2:", { files: ["./vencedor/ImgWinner.png"] })
+                            await winner.composite(avatar, 785, 351).getBuffer(jimp.MIME_PNG, async (err, buffer) => {
+                                positionWinner++;
+                                await message.channel.send(":writing_hand: Parabéns <@" + idUser + "> você foi o " + positionWinner + "° vencedor(a)! :star2:", new MessageAttachment(buffer, 'image.jpg'))
+                            })
 
                             cartelaUsers.splice(r, 1) //remover jogador
                             users.splice(r, 1)
